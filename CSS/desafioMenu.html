@@ -8,125 +8,107 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
-            font-family: 'Oswald',Arial, Helvetica, sans-serif
         }
 
         body {
-            background-color: rgb(91, 125, 126);
-            height: 100vh;
+            margin: 0;
+            font-family: 'Oswald', sans-serif;
+            background-color: lightgray;
         }
 
-        header {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-
-            width: 100%;
+        .cabecalho {
+            background: #333;
+            border-bottom: solid 5px #4faddb;
             height: 80px;
-            padding: 10px;
-
-            background-color: black;
-            border-bottom: 5px solid rgba(0, 247, 255, 0.733);
+            box-sizing: content-box;
         }
 
-        header .logo img {
-            width: 300px;
+        .logo {
+            display: inline-block;
+            height: 80px;
+            padding: 15px;
+        }
+
+        .logo img {
+            height: 100%;
         }
 
         .menu-toggle {
-            display:none;
+            float: right;
+            color: #eee;
+            background-color: #555;
+            border: solid 1px #777;
+            border-radius: 5px;
+            height: 40px;
+            padding: 10px 20px;
+            margin: 20px 15px;
         }
 
         .menu {
-            display: flex;
-            flex-direction: row;
-            width: 400px;
+            display: inline-block;
+            vertical-align: top;
+            height: 80px;
+            padding: 25px;
+        }
+
+        .menu ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu li {
+            display: inline-block;
+        }
+
+        .cabecalho a {
+            text-decoration: none;
+            color: #eee;
+            font-size: 1.3em;
         }
 
         .menu a {
-            transition: ease-in-out 0.5s;
-            
-        }
-
-        .menu a:hover {
-            display: inline;
-            color: black;
-            background-color: aquamarine;
-            padding: 2px;
-            border-radius: 5px;
+            padding: 15px;
         }
 
         .autenticacao {
-            width: 170px;
-            text-align: right;
+            float: right;
+            height: 80px;
+            padding: 25px;
         }
 
-        .autenticacao a {
-            margin-right: 15px;
+        .menu a:hover,
+        .menu a.selected {
+            background-color: #4faddb;
+            color: #000;
         }
 
-        a {
-            text-decoration: none;
-            color: white;
-            font-size: 1.2em;
-        }
-
-        ul, li {
-            list-style: none;
-            display: inline;
-        }
-
-        ul, li a {
-            margin-right: 15px;
-            margin-left: 15px;
-        }
-
-        li a {
-            text-align: center;
+        .botao {
+            border-radius: 30px;
+            padding: 10px 25px;
+            margin: 10px;
         }
 
         .destaque {
-            background-color: red;
-            padding: 5px 15px;
-            border-radius: 20px;
-            transition: ease-in-out 0.5s;
+            background: #f50a31;
+            color: #fff;
         }
 
-        .destaque:hover {
-            background-color: aquamarine;
-            color: black;
+        @media(min-width: 679px) {
+            .menu-toggle {
+                display: none;
+            }
         }
 
-        .inicio {
-            margin-left: 20px;
+        @media(max-width: 680px) {
+            .menu {
+                display: none;
+            }
         }
 
-        @media (width <=870px) {
+        @media(max-width: 910px) {
             .autenticacao {
                 display: none;
-            }
-
-            .menu {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            width: 400px;
-            }            
-        }
-
-        @media (width<=680px) {
-            .menu {
-                display: none;
-            }
-
-            .menu-toggle {
-                display: block;
-                width: 50px;
-                height: 50px;
             }
         }
     </style>
@@ -145,7 +127,7 @@
         <nav class="menu">
             <ul>
                 <li>
-                    <a href="#inicio" class="inicio">Início</a>
+                    <a href="#inicio">Início</a>
                 </li>
                 <li>
                     <a href="#cursos">Cursos</a>
@@ -165,7 +147,15 @@
     </header>
 
     <script>
-        // ...
+        window.onhashchange = function(e) {
+            const oldURL = e.oldURL.split('#')[1]
+            const newURL = e.newURL.split('#')[1]
+            console.log(oldURL, newURL)
+            const oldLink = document.querySelector(`.menu a[href='#${oldURL}']`)
+            const newLink = document.querySelector(`.menu a[href='#${newURL}']`)
+            oldLink && oldLink.classList.remove('selected')
+            newLink && newLink.classList.add('selected')
+        }
     </script>
 </body>
 
